@@ -13,7 +13,7 @@ export async function createUser({ username, password }) {
   const hashedPassword = await bcrypt.hash(password, 10);
   const {
     rows: [user],
-  } = await db.query(sql, [username, password]);
+  } = await db.query(sql, [username, hashedPassword]);
   return user;
 }
 

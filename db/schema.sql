@@ -1,10 +1,9 @@
 DROP TABLE IF EXISTS tasks;
 DROP TABLE IF EXISTS users;
 
-
 CREATE TABLE users (
     id serial primary key,
-    username text not null,
+    username text unique not null,
     password text not null
 );
 

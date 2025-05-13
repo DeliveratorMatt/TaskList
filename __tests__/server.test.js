@@ -72,8 +72,8 @@ describe("/tasks router", () => {
       await db.query("SAVEPOINT s");
       const response = await request(app)
         .post("/tasks")
-        .set("Authorization", `Bearer ${token}`)
-        .send({});
+        .send({})
+        .set("Authorization", `Bearer ${token}`);
       expect(response.status).toBe(400);
       await db.query("ROLLBACK TO s");
     });
