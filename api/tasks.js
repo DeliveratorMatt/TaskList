@@ -39,13 +39,14 @@ router
     if (req.user.id !== req.task.user_id) {
       return res.status(403).send("You are not authorized to view this task.");
     }
+    const { title, done } = req.body;
     const updatedTask = await updateTask({
       id: req.task.id,
       title,
       done,
       user_id: req.user.id,
     });
-    res.status(200).send(updatedTask);
+    res.send(updatedTask);
   })
   .delete(requireUser, async (req, res) => {
     if (req.user.id !== req.task.user_id) {
@@ -53,6 +54,7 @@ router
         .status(403)
         .send("You are not authorized to delete this task.");
     }
-    await deleteTask({ id: req.task.id });
+    const id = req.task.id;
+    await deleteTask(id);
     res.status(204).send("Task deleted.");
   });
