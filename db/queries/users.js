@@ -17,6 +17,19 @@ export async function createUser({ username, password }) {
   return user;
 }
 
+/** @returns a user from their ID number */
+export async function getUserById(id) {
+  const sql = `
+  SELECT *
+  FROM users
+  WHERE id = $1
+  `;
+  const {
+    rows: [user],
+  } = await db.query(sql, [id]);
+  return user;
+}
+
 /** @returns a user by username and password if they have a valid token */
 export async function getUserByUsernameAndPassword(username, password) {
   const sql = `

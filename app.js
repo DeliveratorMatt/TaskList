@@ -1,15 +1,20 @@
 import express from "express";
-import usersRouter from "#api/users";
-import tasksRouter from "#api/tasks";
 const app = express();
 export default app;
 
+import usersRouter from "#api/users";
+import tasksRouter from "#api/tasks";
+import getUserFromToken from "#middleware/getUserFromToken";
+
 app.use(express.json());
+
+app.use(getUserFromToken);
 
 app.use("/users", usersRouter);
 app.use("/tasks", tasksRouter);
 
 app.use((err, req, res, next) => {
+  console.error(err);
   switch (err.code) {
     // Invalid type
     case "22P02":
